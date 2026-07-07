@@ -1,0 +1,219 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "username": "admin",
+      "password": "government2024",
+      "role": "Chief Planning Officer",
+      "department": "Ministry of Planning"
+    },
+    {
+      "id": "u2",
+      "username": "minister",
+      "password": "minister123",
+      "role": "Cabinet Minister",
+      "department": "Cabinet Secretariat"
+    },
+    {
+      "id": "u3",
+      "username": "analyst",
+      "password": "analyst123",
+      "role": "Senior Analyst",
+      "department": "National Development Council"
+    }
+  ],
+  "plans": [
+    {
+      "id": "plan_1783234689447_tnx8y",
+      "title": "nb m",
+      "sector": "Infrastructure",
+      "description": "fghgf",
+      "objectives": "fdghf",
+      "budget": 8678,
+      "duration": 12,
+      "startMonth": 5,
+      "dependencies": "dhthfgh",
+      "submittedBy": "Chief Planning Officer",
+      "department": "Ministry of Planning",
+      "status": "pending",
+      "createdAt": "2026-07-05T06:58:09.447Z",
+      "updatedAt": "2026-07-05T06:58:09.447Z"
+    },
+    {
+      "id": "plan_1783236529008_ajq86",
+      "title": "awdrasd",
+      "sector": "Healthcare",
+      "description": "awerwad",
+      "objectives": "awerwrffsd",
+      "budget": 12,
+      "duration": 3,
+      "startMonth": 1,
+      "dependencies": "dsfsefdf",
+      "submittedBy": "Chief Planning Officer",
+      "department": "Ministry of Planning",
+      "status": "pending",
+      "createdAt": "2026-07-05T07:28:49.008Z",
+      "updatedAt": "2026-07-05T07:28:49.008Z"
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "eval_1783234713459_cq9ih",
+      "timestamp": "2026-07-05T06:58:33.459Z",
+      "evaluatedBy": "admin",
+      "situationContext": {
+        "id": "default",
+        "name": "Standard Operations",
+        "description": "Stable economic indicators, moderate weather forecast, normal fiscal budget allocation across all ministries.",
+        "inflation": "Low (3.1%)",
+        "season": "Dry Season (Months 1–5), Monsoon (Months 6–9), Winter (Months 10–12)",
+        "fiscalStress": "None",
+        "criticalIssues": [
+          "Infrastructure bottlenecks in rural sectors",
+          "Digital divide in remote districts"
+        ],
+        "priorities": [
+          "Infrastructure",
+          "Education",
+          "Digital/IT"
+        ],
+        "emergencySector": null,
+        "emoji": "🟢"
+      },
+      "evaluatedPlans": [
+        {
+          "id": "plan_1783234689447_tnx8y",
+          "title": "nb m",
+          "sector": "Infrastructure",
+          "description": "fghgf",
+          "objectives": "fdghf",
+          "budget": 8678,
+          "duration": 12,
+          "startMonth": 5,
+          "dependencies": "dhthfgh",
+          "submittedBy": "Chief Planning Officer",
+          "department": "Ministry of Planning",
+          "status": "pending",
+          "createdAt": "2026-07-05T06:58:09.447Z",
+          "updatedAt": "2026-07-05T06:58:09.447Z",
+          "score": 78,
+          "priorityClass": "High",
+          "recommendedStartMonth": 5,
+          "reasoning": [
+            "Priority Sector: Ranked #1 in current cabinet directives for Infrastructure.",
+            "High Capital: ₹8678 Cr requires strict milestone auditing and phased disbursement."
+          ],
+          "scheduleWarnings": [],
+          "timingAnalysis": "Proposed schedule appears adequate for current conditions.",
+          "feasibilityScore": 69
+        }
+      ],
+      "summary": {
+        "totalPlans": 1,
+        "highPriority": 1,
+        "mediumPriority": 0,
+        "lowPriority": 0,
+        "totalBudget": 8678
+      },
+      "planCount": 1,
+      "highPriorityCount": 1,
+      "totalBudget": 8678
+    },
+    {
+      "id": "eval_1783236548877_2bd63",
+      "timestamp": "2026-07-05T07:29:08.877Z",
+      "evaluatedBy": "admin",
+      "situationContext": {
+        "id": "monsoon_crisis",
+        "name": "Heavy Monsoon & Flood Emergency",
+        "description": "Severe weather alerts active for Months 3–6. Significant flooding risks in low-lying delta areas. Disaster relief budgets mobilized.",
+        "inflation": "Moderate (4.5%)",
+        "season": "Heavy Monsoons (Months 3–6), Risk of cyclones",
+        "fiscalStress": "Moderate (emergency fund diverted to disaster relief)",
+        "criticalIssues": [
+          "High flooding hazard in 12 districts",
+          "Rural road connectivity damage",
+          "Waterborne disease risk",
+          "Crop failure potential"
+        ],
+        "priorities": [
+          "Water & Sanitation",
+          "Healthcare",
+          "Agriculture"
+        ],
+        "emergencySector": "Water & Sanitation",
+        "emoji": "🌊"
+      },
+      "evaluatedPlans": [
+        {
+          "id": "plan_1783236529008_ajq86",
+          "title": "awdrasd",
+          "sector": "Healthcare",
+          "description": "awerwad",
+          "objectives": "awerwrffsd",
+          "budget": 12,
+          "duration": 3,
+          "startMonth": 1,
+          "dependencies": "dsfsefdf",
+          "submittedBy": "Chief Planning Officer",
+          "department": "Ministry of Planning",
+          "status": "pending",
+          "createdAt": "2026-07-05T07:28:49.008Z",
+          "updatedAt": "2026-07-05T07:28:49.008Z",
+          "score": 92,
+          "priorityClass": "High",
+          "recommendedStartMonth": 1,
+          "reasoning": [
+            "Priority Sector: Ranked #2 in current cabinet directives for Healthcare.",
+            "Budget Within Norms: ₹12 Cr fits within standard sector allocation thresholds.",
+            "Social Safety Net: Directly protects vulnerable populations with immediate implementation impact."
+          ],
+          "scheduleWarnings": [],
+          "timingAnalysis": "Proposed schedule appears adequate for current conditions.",
+          "feasibilityScore": 92
+        },
+        {
+          "id": "plan_1783234689447_tnx8y",
+          "title": "nb m",
+          "sector": "Infrastructure",
+          "description": "fghgf",
+          "objectives": "fdghf",
+          "budget": 8678,
+          "duration": 12,
+          "startMonth": 5,
+          "dependencies": "dhthfgh",
+          "submittedBy": "Chief Planning Officer",
+          "department": "Ministry of Planning",
+          "status": "pending",
+          "createdAt": "2026-07-05T06:58:09.447Z",
+          "updatedAt": "2026-07-05T06:58:09.447Z",
+          "score": 35,
+          "priorityClass": "Low",
+          "recommendedStartMonth": 7,
+          "reasoning": [
+            "Secondary Sector: Infrastructure is not in current priority focus areas.",
+            "High Capital: ₹8678 Cr requires strict milestone auditing and phased disbursement.",
+            "Monsoon Conflict: Risk of soil erosion, mudslides, and concrete curing failures during peak rain."
+          ],
+          "scheduleWarnings": [
+            "⚠️ Outdoor construction phases fall during peak monsoon (Months 3–6). Expect 2–3 month delays."
+          ],
+          "timingAnalysis": "Schedule Conflict: Excavation and paving during heavy rains will cause major delays. Recommend shifting start to Month 7 (post-monsoon).",
+          "feasibilityScore": 31
+        }
+      ],
+      "summary": {
+        "totalPlans": 2,
+        "highPriority": 1,
+        "mediumPriority": 0,
+        "lowPriority": 1,
+        "totalBudget": 8690
+      },
+      "planCount": 2,
+      "highPriorityCount": 1,
+      "totalBudget": 8690
+    }
+  ],
+  "reports": [],
+  "settings": {}
+}

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GovAssign AI — Government Project Intelligence System</title>
+  <meta name="description" content="AI-powered government project prioritization, real-time situation analysis, and implementation timeline optimizer for public sector planning." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+ 
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN APPLICATION
+═══════════════════════════════════════════════════════════════════ -->
+<div id="app" class="app">
+
+  <!-- HEADER -->
+  <header class="app-header" id="app-header">
+    <div class="header-brand">
+      <div class="brand-icon">🏛️</div>
+      <div class="brand-text">
+        <h1>GovAssign AI</h1>
+        <span>Project Intelligence System</span>
+      </div>
+    </div>
+
+    <nav class="header-nav" id="main-nav">
+      <button class="nav-btn active" data-tab="dashboard" id="tab-dashboard">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Dashboard</span>
+      </button>
+      <button class="nav-btn" data-tab="submit" id="tab-submit">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">Submit Plan</span>
+      </button>
+      <button class="nav-btn" data-tab="plans" id="tab-plans">
+        <span class="nav-icon">📁</span>
+        <span class="nav-label">All Plans</span>
+      </button>
+      <button class="nav-btn" data-tab="analyze" id="tab-analyze">
+        <span class="nav-icon">🤖</span>
+        <span class="nav-label">AI Analysis</span>
+      </button>
+      <button class="nav-btn" data-tab="report" id="tab-report">
+        <span class="nav-icon">📑</span>
+        <span class="nav-label">Reports</span>
+      </button>
+      <button class="nav-btn" data-tab="history" id="tab-history">
+        <span class="nav-icon">🗂️</span>
+        <span class="nav-label">History</span>
+      </button>
+      <button class="nav-btn" data-tab="todo" id="tab-todo">
+        <span class="nav-icon">✅</span>
+        <span class="nav-label">Tasks</span>
+      </button>
+    </nav>
+
+    <div class="header-user">
+      <div class="user-badge" id="user-badge">
+        <div class="user-avatar" id="user-avatar">A</div>
+        <div class="user-info">
+          <span class="user-name" id="user-name">Admin</span>
+          <span class="user-role" id="user-role">Officer</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- GLOBAL AI LOADING OVERLAY -->
+  <div id="ai-overlay" class="ai-overlay hidden">
+    <div class="ai-loader-box">
+      <div class="ai-brain-animation">
+        <div class="brain-ring ring-1"></div>
+        <div class="brain-ring ring-2"></div>
+        <div class="brain-ring ring-3"></div>
+        <div class="brain-core">🤖</div>
+      </div>
+      <h2>AI Agent Analyzing…</h2>
+      <p id="ai-status-text">Fetching real-time context and evaluating government plans…</p>
+      <div class="ai-progress-bar">
+        <div class="ai-progress-fill" id="ai-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="app-main" id="app-main">
+
+    <!-- ───────────── TAB: DASHBOARD ───────────── -->
+    <section id="tab-content-dashboard" class="tab-content active">
+      <div class="page-header">
+        <div>
+          <h2>Command Dashboard</h2>
+          <p>Real-time overview of government project portfolio and AI evaluation status.</p>
+        </div>
+        <button class="btn btn-primary btn-glow" id="quick-analyze-btn">
+          🤖 Run AI Evaluation Now
+        </button>
+      </div>
+
+      <!-- STATS GRID -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card" id="stat-total-plans">
+          <div class="stat-icon">📋</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-val-plans">—</div>
+            <div class="stat-label">Total Plans Submitted</div>
+          </div>
+          <div class="stat-trend">All Sectors</div>
+        </div>
+        <div class="stat-card red" id="stat-high-priority">
+          <div class="stat-icon">🔴</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-val-high">—</div>
+            <div class="stat-label">Critical Priority</div>
+          </div>
+          <div class="stat-trend">Immediate Action</div>
+        </div>
+        <div class="stat-card amber" id="stat-evaluations">
+          <div class="stat-icon">🤖</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-val-evals">—</div>
+            <div class="stat-label">AI Evaluations Run</div>
+          </div>
+          <div class="stat-trend">Sessions Logged</div>
+        </div>
+        <div class="stat-card green" id="stat-budget">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-val-budget">—</div>
+            <div class="stat-label">Total Capital Required</div>
+          </div>
+          <div class="stat-trend">₹ Crores</div>
+        </div>
+      </div>
+
+      <!-- REAL-TIME SITUATION BANNER -->
+      <div class="situation-banner" id="situation-banner">
+        <div class="situation-indicator">
+          <div class="pulse-dot"></div>
+          <span>LIVE SITUATION CONTEXT</span>
+        </div>
+        <div class="situation-content">
+          <div class="situation-selector-row">
+            <label>Current National Situation:</label>
+            <select id="situation-select" class="situation-select">
+              <option value="default">🟢 Standard Operations — Stable Economy</option>
+              <option value="monsoon_crisis">🌊 Heavy Monsoon &amp; Flood Emergency</option>
+              <option value="inflation_squeeze">📈 High Inflation &amp; Fiscal Austerity</option>
+              <option value="energy_transition">⚡ Green Energy Transition Directive</option>
+              <option value="pandemic_response">🏥 Public Health Emergency</option>
+              <option value="custom">✏️ Define Custom Situation</option>
+            </select>
+          </div>
+          <div id="situation-details" class="situation-details"></div>
+          <div id="custom-situation-form" class="custom-situation-form hidden">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Situation Name</label>
+                <input type="text" id="cust-sit-name" placeholder="e.g. Earthquake Relief Operations" />
+              </div>
+              <div class="form-group">
+                <label>Inflation Level</label>
+                <input type="text" id="cust-sit-inflation" placeholder="e.g. High (7.2%)" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Overview / Description</label>
+              <textarea id="cust-sit-desc" rows="2" placeholder="Describe the current economic and social situation…"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Fiscal Stress Level</label>
+                <select id="cust-sit-fiscal">
+                  <option value="None">None</option>
+                  <option value="Low">Low</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Emergency Sector (if any)</label>
+                <select id="cust-sit-emergency">
+                  <option value="">None</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Infrastructure">Infrastructure</option>
+                  <option value="Agriculture">Agriculture</option>
+                  <option value="Energy">Energy</option>
+                  <option value="Water &amp; Sanitation">Water &amp; Sanitation</option>
+                  <option value="Social Welfare">Social Welfare</option>
+                  <option value="Education">Education</option>
+                  <option value="Defence">Defence</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Top Priority Sectors (comma-separated)</label>
+              <input type="text" id="cust-sit-priorities" placeholder="e.g. Healthcare, Infrastructure, Digital/IT" />
+            </div>
+            <div class="form-group">
+              <label>Critical Issues (comma-separated)</label>
+              <input type="text" id="cust-sit-issues" placeholder="e.g. Water shortage, supply disruption, road damage" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT PLANS PREVIEW + QUICK CHART -->
+      <div class="dashboard-two-col">
+        <div class="card">
+          <div class="card-header">
+            <h3>📋 Latest Submitted Plans</h3>
+            <button class="btn btn-ghost" data-tab-link="plans" style="font-size:0.78rem;padding:0.4rem 0.8rem">View All →</button>
+          </div>
+          <div id="recent-plans-list" class="recent-plans-list">
+            <div class="empty-state" style="padding:2rem 1rem">
+              <div class="empty-icon">📭</div>
+              <h3>No Plans Yet</h3>
+              <p>Submit a government plan to begin AI evaluation.</p>
+              <a href="#" data-tab-link="submit">Submit one →</a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3>📊 Sector Distribution</h3>
+          </div>
+          <div id="sector-chart" class="sector-chart">
+            <div class="empty-state" style="padding:2rem 1rem">
+              <div class="empty-icon">📊</div>
+              <p>No sector data yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── TAB: SUBMIT PLAN ───────────── -->
+    <section id="tab-content-submit" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h2>Submit Government Plan</h2>
+          <p>Government sector officers can submit their annual plans for AI evaluation and prioritization.</p>
+        </div>
+      </div>
+
+      <div class="submit-layout">
+        <div class="card submit-form-card">
+          <div class="card-header">
+            <h3>📋 Plan Details</h3>
+            <span class="required-note">* Required fields</span>
+          </div>
+          <form id="plan-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="plan-title">Plan Title *</label>
+                <input type="text" id="plan-title" placeholder="e.g. National Highway Expansion Phase II" required />
+              </div>
+              <div class="form-group">
+                <label for="plan-sector">Government Sector *</label>
+                <select id="plan-sector" required>
+                  <option value="">— Select Sector —</option>
+                  <option value="Infrastructure">🛣️ Infrastructure</option>
+                  <option value="Healthcare">🏥 Healthcare</option>
+                  <option value="Education">📚 Education</option>
+                  <option value="Agriculture">🌾 Agriculture</option>
+                  <option value="Energy">⚡ Energy</option>
+                  <option value="Water &amp; Sanitation">💧 Water &amp; Sanitation</option>
+                  <option value="Social Welfare">🤝 Social Welfare</option>
+                  <option value="Digital/IT">💻 Digital/IT</option>
+                  <option value="Defence">🛡️ Defence</option>
+                  <option value="Transport">🚂 Transport</option>
+                  <option value="Urban Development">🏙️ Urban Development</option>
+                  <option value="Environment">🌿 Environment</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="plan-description">Plan Description *</label>
+              <textarea id="plan-description" rows="4" placeholder="Describe the project scope, activities, target areas, and expected outputs…" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="plan-objectives">Key Objectives &amp; Expected Outcomes</label>
+              <textarea id="plan-objectives" rows="3" placeholder="What problem does this solve? What measurable results are expected?"></textarea>
+            </div>
+
+            <div class="form-row three-col">
+              <div class="form-group">
+                <label for="plan-budget">Budget Required (₹ Crores) *</label>
+                <input type="number" id="plan-budget" min="0.1" step="0.1" placeholder="e.g. 150" required />
+              </div>
+              <div class="form-group">
+                <label for="plan-duration">Duration (Months) *</label>
+                <input type="number" id="plan-duration" min="1" max="24" placeholder="e.g. 6" required />
+              </div>
+              <div class="form-group">
+                <label for="plan-start-month">Proposed Start Month (1–12) *</label>
+                <input type="number" id="plan-start-month" min="1" max="12" placeholder="e.g. 3" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="plan-dependencies">Dependencies &amp; Prerequisites</label>
+              <input type="text" id="plan-dependencies" placeholder="e.g. Land acquisition clearance, supply chain readiness, inter-ministry approval…" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="plan-submitted-by">Submitted By (Officer Name) *</label>
+                <input type="text" id="plan-submitted-by" placeholder="e.g. Shri. Rajesh Kumar" required />
+              </div>
+              <div class="form-group">
+                <label for="plan-department">Department / Ministry *</label>
+                <input type="text" id="plan-department" placeholder="e.g. Ministry of Road Transport &amp; Highways" required />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" id="clear-form-btn">Clear Form</button>
+              <button type="submit" class="btn btn-primary" id="submit-plan-btn">
+                📤 Submit Plan for AI Evaluation
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Guide panel -->
+        <div class="submit-guide">
+          <div class="card guide-card">
+            <h3>📌 Submission Guide</h3>
+            <ul class="guide-list">
+              <li>
+                <span class="guide-step">1</span>
+                <div><strong>Fill all required fields</strong> with accurate, detailed information about your plan.</div>
+              </li>
+              <li>
+                <span class="guide-step">2</span>
+                <div><strong>Include realistic timelines</strong> — the AI will evaluate your proposed schedule against seasonal and economic factors.</div>
+              </li>
+              <li>
+                <span class="guide-step">3</span>
+                <div><strong>List all dependencies</strong> — imports, land acquisition, inter-ministry approvals that could affect implementation.</div>
+              </li>
+              <li>
+                <span class="guide-step">4</span>
+                <div><strong>After submission</strong>, go to <em>AI Analysis</em> tab to run the evaluation and see priority scoring.</div>
+              </li>
+            </ul>
+          </div>
+          <div class="card sectors-card">
+            <h3>🏛️ Priority Sectors (Current Situation)</h3>
+            <div id="priority-sectors-guide" class="priority-sectors-guide"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── TAB: ALL PLANS ───────────── -->
+    <section id="tab-content-plans" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h2>All Submitted Plans</h2>
+          <p>Complete repository of government plans from all sectors pending evaluation.</p>
+        </div>
+        <div class="page-actions">
+          <select id="filter-sector" class="filter-select">
+            <option value="">All Sectors</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Education">Education</option>
+            <option value="Agriculture">Agriculture</option>
+            <option value="Energy">Energy</option>
+            <option value="Water &amp; Sanitation">Water &amp; Sanitation</option>
+            <option value="Social Welfare">Social Welfare</option>
+            <option value="Digital/IT">Digital/IT</option>
+            <option value="Defence">Defence</option>
+            <option value="Transport">Transport</option>
+            <option value="Urban Development">Urban Development</option>
+            <option value="Environment">Environment</option>
+          </select>
+          <button class="btn btn-ghost" id="load-demo-plans-btn">📦 Load Demo Plans</button>
+        </div>
+      </div>
+
+      <div id="plans-grid" class="plans-grid">
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="empty-icon">📭</div>
+          <h3>No Plans Submitted</h3>
+          <p>Be the first to submit a government plan for AI analysis.</p>
+          <button class="btn btn-primary" data-tab-link="submit">Submit First Plan →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── TAB: AI ANALYSIS ───────────── -->
+    <section id="tab-content-analyze" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h2>🤖 AI Evaluation Engine</h2>
+          <p>xAI Grok analyzes all submitted plans against the current real-time situation to produce prioritized recommendations.</p>
+        </div>
+        <button class="btn btn-primary btn-glow" id="run-ai-btn">
+          ⚡ Run Full AI Analysis
+        </button>
+      </div>
+
+      <!-- AI Engine Status Panel -->
+      <div class="ai-engine-status card">
+        <div class="ai-status-header">
+          <div class="ai-model-badge">
+            <div class="ai-model-dot"></div>
+            <span>xAI Grok-3 Model Active</span>
+          </div>
+          <div class="ai-key-status" id="ai-key-status">
+            <span class="status-dot green"></span>
+            <span>API Key Configured</span>
+          </div>
+        </div>
+        <div class="ai-description">
+          <p>The AI Agent acts as a <strong>Senior Government Planning Advisor</strong>. It evaluates each plan against:</p>
+          <div class="ai-factors-grid">
+            <div class="ai-factor">📅 <span>Seasonal Timing</span></div>
+            <div class="ai-factor">💰 <span>Fiscal Stress</span></div>
+            <div class="ai-factor">🎯 <span>Sector Alignment</span></div>
+            <div class="ai-factor">⚠️ <span>Risk Assessment</span></div>
+            <div class="ai-factor">🔗 <span>Dependencies</span></div>
+            <div class="ai-factor">📈 <span>Social Impact</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Priority Classification Legend -->
+      <div class="priority-legend">
+        <div class="legend-item high">
+          <div class="legend-dot"></div>
+          <div>
+            <strong>HIGH PRIORITY (Score ≥ 75)</strong>
+            <span>Implement immediately. Strong alignment with current situation.</span>
+          </div>
+        </div>
+        <div class="legend-item medium">
+          <div class="legend-dot"></div>
+          <div>
+            <strong>MEDIUM PRIORITY (Score 45–74)</strong>
+            <span>Plan carefully. Schedule optimization recommended.</span>
+          </div>
+        </div>
+        <div class="legend-item low">
+          <div class="legend-dot"></div>
+          <div>
+            <strong>LOW PRIORITY (Score &lt; 45)</strong>
+            <span>Defer or revise. Conflicts with current economic/seasonal conditions.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Area -->
+      <div id="analysis-results" class="analysis-results">
+        <div class="empty-state">
+          <div class="empty-icon">🤖</div>
+          <h3>No Analysis Yet</h3>
+          <p>Click "Run Full AI Analysis" to evaluate all submitted plans against the current situation.</p>
+        </div>
+      </div>
+
+      <!-- Save Evaluation Button -->
+      <div id="save-eval-bar" class="save-eval-bar hidden">
+        <div>
+          <strong>Evaluation Complete!</strong>
+          <span id="eval-summary-text">All plans evaluated.</span>
+        </div>
+        <button class="btn btn-primary" id="save-evaluation-btn">
+          💾 Save to Cabinet Registry
+        </button>
+      </div>
+    </section>
+
+    <!-- ───────────── TAB: REPORTS ───────────── -->
+    <section id="tab-content-report" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h2>📑 AI-Generated Policy Reports</h2>
+          <p>Comprehensive government policy briefs generated by the AI agent for cabinet-level review.</p>
+        </div>
+        <button class="btn btn-primary" id="generate-report-btn">
+          📝 Generate AI Report
+        </button>
+      </div>
+
+      <div id="report-content-area" class="report-content-area">
+        <div class="empty-state">
+          <div class="empty-icon">📄</div>
+          <h3>No Reports Generated</h3>
+          <p>Run an AI evaluation and click "Generate AI Report" to produce a cabinet-ready policy brief.</p>
+        </div>
+      </div>
+
+      <div id="saved-reports-section" class="card">
+        <div class="card-header">
+          <h3>🗄️ Saved Reports Archive</h3>
+        </div>
+        <div id="saved-reports-list" class="saved-reports-list">
+          <div class="empty-state" style="padding:1.5rem">No saved reports yet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── TAB: HISTORY ───────────── -->
+    <section id="tab-content-history" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h2>🗂️ Evaluation History Registry</h2>
+          <p>Complete log of all AI analysis sessions saved to the backend database.</p>
+        </div>
+        <button class="btn btn-ghost" id="refresh-history-btn">🔄 Refresh</button>
+      </div>
+
+      <div id="history-grid" class="history-grid">
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="empty-icon">🗂️</div>
+          <h3>No History Logged</h3>
+          <p>Complete an AI evaluation and save it to the Cabinet Registry to see records here.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+    <!-- ─────────────── TAB: TODO / TASKS ─────────────── -->
+    <section id="tab-content-todo" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h2>&#x2705; Task Command Center</h2>
+          <p>Track action items, follow-ups, and implementation tasks across all government plans.</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-ghost" id="todo-clear-completed-btn">&#x1F5D1; Clear Completed</button>
+          <button class="btn btn-primary" id="todo-toggle-form-btn">&#xFF0B; New Task</button>
+        </div>
+      </div>
+
+      <div class="todo-stats-bar">
+        <div class="todo-stat-pill total">
+          <div class="todo-stat-icon">&#x1F4CB;</div>
+          <div><div class="todo-stat-val" id="todo-stat-total">0</div><div class="todo-stat-label">Total Tasks</div></div>
+        </div>
+        <div class="todo-stat-pill pending">
+          <div class="todo-stat-icon">&#x23F3;</div>
+          <div><div class="todo-stat-val" id="todo-stat-pending">0</div><div class="todo-stat-label">Pending</div></div>
+        </div>
+        <div class="todo-stat-pill done">
+          <div class="todo-stat-icon">&#x2705;</div>
+          <div><div class="todo-stat-val" id="todo-stat-done">0</div><div class="todo-stat-label">Completed</div></div>
+        </div>
+        <div class="todo-stat-pill overdue">
+          <div class="todo-stat-icon">&#x1F6A8;</div>
+          <div><div class="todo-stat-val" id="todo-stat-overdue">0</div><div class="todo-stat-label">Overdue</div></div>
+        </div>
+      </div>
+
+      <div class="todo-quick-add" id="todo-quick-add-bar">
+        <span class="todo-quick-add-icon">&#xFF0B;</span>
+        <input type="text" id="todo-quick-input" class="todo-quick-input"
+          placeholder="Type a task and press Enter... e.g. Follow up on Highway NH-42 procurement" maxlength="120" />
+        <div class="todo-quick-controls">
+          <select id="todo-quick-priority" class="todo-priority-select">
+            <option value="Medium">&#x1F7E1; Medium</option>
+            <option value="High">&#x1F534; High</option>
+            <option value="Low">&#x26AA; Low</option>
+          </select>
+          <input type="date" id="todo-quick-date" class="todo-date-input" title="Due date" />
+          <button class="btn btn-primary" id="todo-quick-submit-btn" style="padding:0.35rem 0.9rem;font-size:0.82rem">Add</button>
+          <button class="btn btn-ghost" id="todo-expand-form-btn" style="padding:0.35rem 0.7rem;font-size:0.82rem" title="More options">&#x22EF;</button>
+        </div>
+      </div>
+
+      <div class="todo-add-panel" id="todo-add-panel">
+        <h4>&#x1F4DD; Detailed Task Entry</h4>
+        <div class="todo-form-grid">
+          <div class="form-group todo-form-full">
+            <label for="todo-full-title">Task Title *</label>
+            <input type="text" id="todo-full-title" placeholder="Describe the task clearly..." maxlength="120" />
+          </div>
+          <div class="form-group todo-form-full">
+            <label for="todo-full-desc">Description / Notes</label>
+            <textarea id="todo-full-desc" rows="2" placeholder="Additional details, context, or acceptance criteria..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="todo-full-priority">Priority</label>
+            <select id="todo-full-priority">
+              <option value="High">&#x1F534; High - Critical / Urgent</option>
+              <option value="Medium" selected>&#x1F7E1; Medium - Normal</option>
+              <option value="Low">&#x26AA; Low - When possible</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="todo-full-sector">Related Sector</label>
+            <select id="todo-full-sector">
+              <option value="">-- None --</option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Education">Education</option>
+              <option value="Agriculture">Agriculture</option>
+              <option value="Energy">Energy</option>
+              <option value="Water &amp; Sanitation">Water &amp; Sanitation</option>
+              <option value="Social Welfare">Social Welfare</option>
+              <option value="Digital/IT">Digital/IT</option>
+              <option value="Defence">Defence</option>
+              <option value="Transport">Transport</option>
+              <option value="Urban Development">Urban Development</option>
+              <option value="Environment">Environment</option>
+              <option value="General">General / Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="todo-full-due">Due Date</label>
+            <input type="date" id="todo-full-due" />
+          </div>
+          <div class="form-group">
+            <label for="todo-full-assignee">Assigned To</label>
+            <input type="text" id="todo-full-assignee" placeholder="Officer / Ministry name" maxlength="60" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-ghost" id="todo-cancel-form-btn">Cancel</button>
+          <button class="btn btn-primary" id="todo-full-submit-btn">&#x1F4E4; Add Task</button>
+        </div>
+      </div>
+
+      <div class="todo-filters" id="todo-filters">
+        <button class="todo-filter-btn active" data-todo-filter="all">All</button>
+        <button class="todo-filter-btn" data-todo-filter="pending">&#x23F3; Pending</button>
+        <button class="todo-filter-btn" data-todo-filter="completed">&#x2705; Completed</button>
+        <div class="todo-filter-sep"></div>
+        <button class="todo-filter-btn" data-todo-filter="High">&#x1F534; High</button>
+        <button class="todo-filter-btn" data-todo-filter="Medium">&#x1F7E1; Medium</button>
+        <button class="todo-filter-btn" data-todo-filter="Low">&#x26AA; Low</button>
+        <div class="todo-filter-sep"></div>
+        <button class="todo-filter-btn" data-todo-filter="overdue">&#x1F6A8; Overdue</button>
+        <select class="todo-sort-select" id="todo-sort">
+          <option value="created_desc">Newest First</option>
+          <option value="created_asc">Oldest First</option>
+          <option value="due_asc">Due Date (asc)</option>
+          <option value="priority">Priority (desc)</option>
+          <option value="alpha">A to Z</option>
+        </select>
+      </div>
+
+      <div class="todo-list" id="todo-list"></div>
+    </section>
+  <!-- PLAN DETAIL MODAL -->
+  <div id="plan-modal" class="modal hidden">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-plan-title">Plan Details</h3>
+        <button class="modal-close" id="modal-close-btn">✕</button>
+      </div>
+      <div id="modal-plan-body" class="modal-plan-body"></div>
+    </div>
+  </div>
+
+</div><!-- /#app -->
+
+<script src="js/aiEngine.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+
