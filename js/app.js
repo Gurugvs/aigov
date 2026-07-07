@@ -184,7 +184,7 @@ function handleServerlessApi(method, path, body) {
 
   // 6. Settings
   if (path === '/api/settings') {
-    const hasKey = !!localStorage.getItem('govassign_xai_key');
+    const hasKey = !!(localStorage.getItem('govassign_xai_key') || GovAI.getDefaultKey());
     const preview = hasKey ? '••••••••' : '';
     return { success: true, data: { hasApiKey: hasKey, apiKeyPreview: preview } };
   }

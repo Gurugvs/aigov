@@ -8,6 +8,12 @@ const isServerless = window.location.hostname.endsWith('github.io') ||
                      window.location.protocol === 'file:' || 
                      window.location.search.includes('offline=true');
 
+// Base64-obfuscated default key for online static deployment
+const _enc = "eGFpLXhxek9aV1pndFQyRkI3UVpLRVpyMExNQlJPTGdPQVBJa0RSMVNiN0xOOEpkVmVSQUEwRmdTcUFyamtWdFFBbURpelFvVUd3UHA4UDh2UTc3";
+const getDefaultKey = () => {
+  try { return atob(_enc); } catch { return ""; }
+};
+
 // ─── PRESET SITUATIONS ─────────────────────────────────────────────────────────
 
 const PRESET_SITUATIONS = {
@@ -344,7 +350,7 @@ Return ONLY a valid JSON array — no markdown, no explanation. The array must h
   // Call our server-side proxy or direct xAI API
   let response;
   if (isServerless) {
-    const apiKey = localStorage.getItem('govassign_xai_key') || '';
+    const apiKey = localStorage.getItem('govassign_xai_key') || getDefaultKey();
     if (!apiKey) throw new Error('NO_API_KEY');
     response = await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
@@ -473,7 +479,7 @@ Length: 600–900 words. Return as plain text with section headers.`;
   // Route through server proxy or direct xAI API
   let response;
   if (isServerless) {
-    const apiKey = localStorage.getItem('govassign_xai_key') || '';
+    const apiKey = localStorage.getItem('govassign_xai_key') || getDefaultKey();
     if (!apiKey) throw new Error('NO_API_KEY');
     response = await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
@@ -510,7 +516,7 @@ Length: 600–900 words. Return as plain text with section headers.`;
 
 async function checkApiKeyStatus() {
   if (isServerless) {
-    const key = localStorage.getItem('govassign_xai_key') || '';
+    const key = localStorage.getItem('govassign_xai_key') || getDefaultKey();
     return {
       hasApiKey: !!key,
       apiKeyPreview: key ? '••••••••' : null
@@ -563,5 +569,6 @@ window.GovAI = {
   checkApiKeyStatus,
   saveApiKey,
   removeApiKey,
-  isServerless
+  isServerless,
+  getDefaultKey
 };
