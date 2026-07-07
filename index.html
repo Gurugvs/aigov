@@ -13,9 +13,66 @@
 <body>
 
 <!-- ═══════════════════════════════════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════════════════════════════ -->
+<div id="login-screen" class="login-screen">
+  <div class="login-bg-particles" id="particles-container"></div>
+
+  <div class="login-card">
+    <!-- Emblem -->
+    <div class="login-emblem">
+      <div class="emblem-ring"></div>
+      <div class="emblem-ring-2"></div>
+      <div class="emblem-core">🏛️</div>
+    </div>
+
+    <!-- Badge -->
+    <div class="login-badge">
+      <div class="login-badge-dot"></div>
+      SECURE ACCESS PORTAL
+    </div>
+
+    <h1 class="login-title">GovAssign AI</h1>
+    <p class="login-subtitle">Government Project Intelligence & Prioritization System</p>
+    <p class="login-tagline">Powered by <strong>xAI Grok</strong> — Real-Time Policy Analysis Engine</p>
+
+    <form id="login-form" class="login-form">
+      <div class="form-group">
+        <label for="login-username">Officer ID / Username</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="text" id="login-username" placeholder="Enter your officer ID" autocomplete="username" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="login-password">Secure Access Code</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔐</span>
+          <input type="password" id="login-password" placeholder="Enter access code" autocomplete="current-password" required />
+        </div>
+      </div>
+      <div id="login-error" class="login-error hidden">
+        <span>⚠</span><span></span>
+      </div>
+      <button type="submit" class="btn-login" id="login-btn">
+        <span class="btn-text">Authorize &amp; Enter</span>
+        <span class="btn-spinner hidden" id="login-spinner">⟳</span>
+      </button>
+    </form>
+
+    <div class="login-demo-credentials">
+      <strong>Demo Access:</strong>&nbsp;
+      <code>admin / government2024</code> &nbsp;|&nbsp;
+      <code>minister / minister123</code> &nbsp;|&nbsp;
+      <code>analyst / analyst123</code>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
      MAIN APPLICATION
 ═══════════════════════════════════════════════════════════════════ -->
-<div id="app" class="app">
+<div id="app" class="app hidden">
 
   <!-- HEADER -->
   <header class="app-header" id="app-header">
@@ -66,6 +123,7 @@
           <span class="user-role" id="user-role">Officer</span>
         </div>
       </div>
+      <button class="btn-icon" id="logout-btn" title="Sign out">⏻</button>
     </div>
   </header>
 

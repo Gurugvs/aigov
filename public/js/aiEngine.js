@@ -513,7 +513,7 @@ async function checkApiKeyStatus() {
     const key = localStorage.getItem('govassign_xai_key') || '';
     return {
       hasApiKey: !!key,
-      apiKeyPreview: key ? `${key.slice(0, 8)}…${key.slice(-4)}` : null
+      apiKeyPreview: key ? '••••••••' : null
     };
   }
   try {

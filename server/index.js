@@ -91,7 +91,7 @@ app.get('/api/settings', (req, res) => {
     success: true,
     data: {
       hasApiKey: !!apiKey,
-      apiKeyPreview: apiKey ? `${apiKey.slice(0, 8)}…${apiKey.slice(-4)}` : null
+      apiKeyPreview: apiKey ? '••••••••' : null
     }
   });
 });

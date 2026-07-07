@@ -80,11 +80,17 @@ function handleServerlessApi(method, path, body) {
   if (path === '/api/auth/login') {
     const { username, password } = body;
     const users = {
-      admin: { username: 'admin', role: 'Chief Planning Officer' },
-      minister: { username: 'minister', role: 'Cabinet Minister' }
+      admin: { username: 'admin', role: 'Chief Planning Officer', department: 'Ministry of Planning' },
+      minister: { username: 'minister', role: 'Cabinet Minister', department: 'Cabinet Secretariat' },
+      analyst: { username: 'analyst', role: 'Senior Analyst', department: 'National Development Council' }
     };
-    if (users[username] && (password === 'government2024' || password === 'minister123')) {
-      return { success: true, user: users[username] };
+    const lowerUser = username ? username.toLowerCase().trim() : '';
+    if (users[lowerUser] && (
+      (lowerUser === 'admin' && password === 'government2024') ||
+      (lowerUser === 'minister' && password === 'minister123') ||
+      (lowerUser === 'analyst' && password === 'analyst123')
+    )) {
+      return { success: true, user: users[lowerUser] };
     }
     throw new Error('Invalid ID or Secure Access Code.');
   }
@@ -179,7 +185,7 @@ function handleServerlessApi(method, path, body) {
   // 6. Settings
   if (path === '/api/settings') {
     const hasKey = !!localStorage.getItem('govassign_xai_key');
-    const preview = hasKey ? `${localStorage.getItem('govassign_xai_key').slice(0, 8)}…` : '';
+    const preview = hasKey ? '••••••••' : '';
     return { success: true, data: { hasApiKey: hasKey, apiKeyPreview: preview } };
   }
 
@@ -1395,11 +1401,32 @@ async function initApp() {
 // ─── EVENT LISTENERS ──────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Set default admin session since login is removed
-  state.user = { username: 'admin', role: 'Chief Planning Officer' };
-  
-  // Directly initialize the app
-  initApp();
+  // Particles on login screen
+  createParticles();
+
+  // Check for saved session
+  const saved = localStorage.getItem('gov_session');
+  if (saved) {
+    try {
+      state.user = JSON.parse(saved);
+      const loginScreen = $('login-screen');
+      if (loginScreen) hide(loginScreen);
+      const appEl = $('app');
+      if (appEl) {
+        show(appEl);
+        appEl.style.opacity = '1';
+      }
+      initApp();
+    } catch (_) {
+      localStorage.removeItem('gov_session');
+    }
+  }
+
+  // Login form
+  $('login-form')?.addEventListener('submit', handleLogin);
+
+  // Logout
+  $('logout-btn')?.addEventListener('click', handleLogout);
 
   // Tab navigation
   $$('.nav-btn').forEach(btn => {
